@@ -64,22 +64,69 @@ that rule.
 ## 2. What you need before you start
 
 If you use the **online option** (Section 3) you need **nothing** except a web
-browser. 🎉
+browser and a free GitHub account. 🎉
 
-To run it on your **own computer** (Section 4), install these three things
-first. (Skip any you already have.)
+If you want to run it on your **own computer** (Section 4), you need **Python**
+installed. That's the only thing you must install yourself — everything else
+(pandas, scikit-learn, Streamlit, etc.) is downloaded automatically in one step
+later. Follow the checks below; this assumes you have **nothing** installed yet.
 
-| Tool | Why | Where to get it |
-|------|-----|-----------------|
-| **Python 3.9 or newer** | the programming language this is written in | https://www.python.org/downloads/ — during install on Windows, **tick the box "Add Python to PATH"** ✅ |
-| **Git** (optional but easy) | to download ("clone") the code | https://git-scm.com/downloads |
-| A code editor (optional) | to read the code | https://code.visualstudio.com/ (VS Code) |
+### Step A — Do you already have Python?
 
-> 💡 **Windows tip:** The "Add Python to PATH" checkbox on the very first
-> install screen is the #1 thing beginners forget. If you forget it, Windows
-> won't find `python` and you'll get errors later.
+Open a terminal and check:
+- **Windows:** press `Start`, type **PowerShell**, press Enter. Then type:
+  ```powershell
+  python --version
+  ```
+- **Mac:** press `Cmd+Space`, type **Terminal**, press Enter. Then type:
+  ```bash
+  python3 --version
+  ```
 
-You do **not** need to know Python to run this. You just copy-paste commands.
+If it prints something like `Python 3.11.5` (any 3.9 or higher) ✅ you're done —
+skip to Section 3 or 4. If it says *"not recognized"* / *"command not found"*,
+do Step B.
+
+### Step B — Install Python (if you don't have it)
+
+**Windows**
+1. Go to **https://www.python.org/downloads/** and click the big **Download
+   Python** button.
+2. Run the downloaded installer.
+3. **VERY IMPORTANT:** on the first screen, tick the checkbox
+   **"Add python.exe to PATH"** at the bottom ✅, *then* click **Install Now**.
+   (This one checkbox is the #1 thing beginners forget — without it Windows
+   can't find Python.)
+4. When it finishes, **close and reopen PowerShell**, and run `python --version`
+   again to confirm.
+
+**Mac**
+1. Go to **https://www.python.org/downloads/** and download the macOS installer.
+2. Open it and click through **Continue → Install**.
+3. Reopen Terminal and run `python3 --version` to confirm.
+   (Alternatively, if you have Homebrew: `brew install python`.)
+
+> **`pip` comes bundled with Python** — you do **not** install it separately.
+> `pip` is the tool that will fetch this project's libraries for you in Section 4.
+
+### Optional extras (nice but not required)
+
+| Tool | Why you might want it | Where |
+|------|-----------------------|-------|
+| **Git** | to download the code with one command (otherwise just use the ZIP) | https://git-scm.com/downloads |
+| **VS Code** | a friendly editor to read/edit the code | https://code.visualstudio.com/ |
+
+### What gets installed automatically (you don't do this by hand)
+
+In Section 4 the single command `pip install -r requirements.txt` downloads all
+the libraries this project needs **from the internet** (so you need to be
+online that one time). For reference, those libraries are:
+
+- **pandas** & **numpy** – handling tables and numbers
+- **scikit-learn** & **joblib** – the machine-learning model
+- **streamlit** – turns the project into a web page
+
+You do **not** need to know Python to run this — you just copy-paste commands.
 
 ---
 
@@ -109,7 +156,13 @@ to install.
 
 ## 4. Run it on your own computer
 
-You will copy-paste 5 short commands. Pick your operating system below.
+You will copy-paste a few short commands. Pick your operating system below.
+
+> 📁 **Already have the project folder?** If you were given the project as a ZIP
+> (or downloaded it), just **unzip it**, then open your terminal **inside that
+> folder** and **skip the `git clone` line** — start from the "Create a virtual
+> environment" step. (On Windows you can open the terminal in the folder by
+> `Shift + right-click` inside it → *"Open PowerShell window here"*.)
 
 ### 🪟 Windows (using PowerShell)
 
