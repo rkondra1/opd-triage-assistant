@@ -28,13 +28,31 @@ true emergencies that matter. This project is built around that trap:
 | **Stretch:** wait-time reduction vs FCFS | `src/waittime.py` |
 | Near-instant nurse UI | `app/streamlit_app.py` |
 
-## Quick start
+## Run it online — no install, nothing to download
+
+The easiest way to try it: open the hosted demo in a browser (phone or laptop).
+
+1. Go to **https://share.streamlit.io/deploy?repository=rkondra1/opd-triage-assistant&branch=main&mainModule=app/streamlit_app.py**
+2. Sign in with GitHub and click **Deploy**.
+3. In ~1–2 minutes you get a public URL like `https://opd-triage-assistant-xxxx.streamlit.app`
+   that anyone can open — no Python, no setup. (First open takes ~15 s while it
+   builds the model once.)
+
+> This repo is public and the app **self-builds** (it generates the synthetic
+> data and trains the model on first run), so the hosted deploy works out of the
+> box.
+
+## Quick start (run locally)
 
 Works on **Windows, macOS and Linux** (pure Python — no OS-specific code).
 
 **macOS / Linux**
 
 ```bash
+# 0. get the code
+git clone https://github.com/rkondra1/opd-triage-assistant.git
+cd opd-triage-assistant
+
 # 1. (recommended) create a virtual env
 python3 -m venv .venv && source .venv/bin/activate
 
@@ -51,6 +69,10 @@ streamlit run app/streamlit_app.py
 **Windows (PowerShell)**
 
 ```powershell
+# 0. get the code (install Git for Windows if needed)
+git clone https://github.com/rkondra1/opd-triage-assistant.git
+cd opd-triage-assistant
+
 # 1. create a virtual env  (install Python 3.9+ from python.org first,
 #    ticking "Add Python to PATH")
 python -m venv .venv
