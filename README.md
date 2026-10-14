@@ -52,7 +52,7 @@ which department fits — **and it is deliberately careful never to downplay a
 real emergency.**
 
 **The key insight (and the whole point of the project):**
-If you just build a normal AI model that tries to be "accurate", it will look
+If you just build an ordinary machine-learning model that tries to be "accurate", it will look
 great because ~95% of patients are not emergencies — but it will occasionally
 call a true emergency "mild", which in a hospital can be fatal. So this project
 is scored by a special rule: **missing an emergency is punished ~20× more
@@ -88,8 +88,13 @@ You do **not** need to know Python to run this. You just copy-paste commands.
 This gives you a public website link that works on any phone or laptop — nothing
 to install.
 
+> 📝 **Before you start:** First upload this project to **your own** GitHub
+> account (create a free account at https://github.com, make a new repository
+> called `opd-triage-assistant`, and upload these files). Then, everywhere below
+> you see `YOUR_GITHUB_USERNAME`, replace it with your own GitHub username.
+
 1. Open this link and **sign in with a GitHub account**:
-   👉 https://share.streamlit.io/deploy?repository=rkondra1/opd-triage-assistant&branch=main&mainModule=app/streamlit_app.py
+   👉 https://share.streamlit.io/deploy?repository=YOUR_GITHUB_USERNAME/opd-triage-assistant&branch=main&mainModule=app/streamlit_app.py
 2. Click the **Deploy** button.
 3. Wait ~1–2 minutes. You'll get a web address like
    `https://opd-triage-assistant-xxxx.streamlit.app`.
@@ -113,7 +118,7 @@ one at a time:
 
 ```powershell
 # 1. Download the code
-git clone https://github.com/rkondra1/opd-triage-assistant.git
+git clone https://github.com/YOUR_GITHUB_USERNAME/opd-triage-assistant.git
 cd opd-triage-assistant
 
 # 2. Create an isolated "virtual environment" (keeps this project's packages separate)
@@ -139,14 +144,14 @@ streamlit run app/streamlit_app.py
 > with `.venv\Scripts\activate.bat`.)
 
 **No Git installed?** Instead of step 1, click the green **`< > Code`** button on
-the [GitHub page](https://github.com/rkondra1/opd-triage-assistant) → **Download
+the [GitHub page](https://github.com/YOUR_GITHUB_USERNAME/opd-triage-assistant) → **Download
 ZIP**, unzip it, then open PowerShell *inside* that folder and start from step 2.
 
 ### 🍎 macOS / 🐧 Linux (using Terminal)
 
 ```bash
 # 1. Download the code
-git clone https://github.com/rkondra1/opd-triage-assistant.git
+git clone https://github.com/YOUR_GITHUB_USERNAME/opd-triage-assistant.git
 cd opd-triage-assistant
 
 # 2. Create and activate a virtual environment
@@ -271,7 +276,7 @@ For every patient the system does five things, in order:
 1. **Clean the vitals.** Impossible values (0 blood pressure, SpO₂ of 0, a
    temperature of 96 "°C") are treated as *missing* instead of trusted. A
    Fahrenheit number typed into the Celsius box is auto-converted.
-2. **Ask the AI model.** A machine-learning model reads the complaint text +
+2. **Ask the model.** A machine-learning model reads the complaint text +
    vitals and estimates the chance of each triage level (1–5).
 3. **Decide safely.** Instead of just picking the most likely level, it picks
    the level that is **safest given the 20× penalty** — so it leans urgent, and
@@ -331,12 +336,12 @@ opd-triage-assistant/
 - **Under-triage / Over-triage** – calling someone *less* urgent (dangerous) /
   *more* urgent (over-cautious) than they really are.
 
-**Programming / AI terms**
+**Programming / machine-learning terms**
 - **Python** – the programming language used here.
 - **Virtual environment (`venv`)** – a private box for this project's packages so
   they don't clash with other projects.
 - **Package / library** – reusable code written by others (installed via `pip`).
-- **Model / training** – the AI learns patterns from example patients
+- **Model / training** – the program learns patterns from example patients
   ("training") so it can judge new ones.
 - **Logistic regression** – a simple, well-understood prediction method.
 - **TF-IDF** – a technique to turn sentences into numbers by looking at which
@@ -403,4 +408,4 @@ Good things to point to during a demo:
 ---
 
 *Built as a learning project. Questions? Open an issue on the
-[GitHub repo](https://github.com/rkondra1/opd-triage-assistant).*
+[GitHub repo](https://github.com/YOUR_GITHUB_USERNAME/opd-triage-assistant).*
