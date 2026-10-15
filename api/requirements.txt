@@ -1,0 +1,5 @@
+# Backend API (in addition to the root requirements.txt which has the ML libs)
+fastapi>=0.110
+uvicorn[standard]>=0.27
+PyJWT>=2.8
+pydantic>=2.5

@@ -354,9 +354,15 @@ opd-triage-assistant/
 ├── requirements.txt          # list of Python packages to install
 ├── run_all.py                # runs everything in one command
 ├── app/
-│   └── streamlit_app.py      # the web app (the nurse's screen)
+│   └── streamlit_app.py      # the simple web app (the nurse's screen)
+├── api/                      # optional: FastAPI backend (serves the ML + login)
+│   ├── main.py               # HTTP endpoints (health, login, triage)
+│   └── auth.py               # real staff authentication (hashed passwords + token)
+├── web/                      # optional: React frontend (the "MediPriority" UI)
+│   └── src/                  # see web/README.md to run it
 ├── docs/
-│   └── DOMAIN_PRIMER.md      # the medical background: triage scale + red flags
+│   ├── DOMAIN_PRIMER.md      # the medical background: triage scale + red flags
+│   └── UI_IMPLEMENTATION_REPORT.md  # how the React login UI was built
 └── src/                      # the brains of the project
     ├── triage_rubric.py      # defines the 5 triage levels & departments
     ├── conditions.py         # "recipes" used to generate realistic patients
@@ -372,6 +378,14 @@ opd-triage-assistant/
 
 > `data/` and `models/` folders are created automatically when you run the
 > project; they are intentionally **not** stored in the repo so it stays small.
+
+> **Two ways to use this project:**
+> 1. **Simple (recommended for a quick demo):** the Streamlit app in `app/` —
+>    one command, no extra tools. This is what Sections 3–6 above describe.
+> 2. **Full UI (optional):** a React frontend (`web/`) with a login screen that
+>    matches the "MediPriority" design, backed by a FastAPI server (`api/`) that
+>    reuses the same model. It needs Node.js + a couple of extra steps —
+>    see [`web/README.md`](web/README.md).
 
 ---
 

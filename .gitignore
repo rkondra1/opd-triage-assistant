@@ -11,6 +11,12 @@ data/*.csv
 models/*.joblib
 models/*.json
 
+# Node / React frontend (web/)
+web/node_modules/
+web/dist/
+web/.env.local
+node_modules/
+
 # OS / editor
 .DS_Store
 .vscode/
