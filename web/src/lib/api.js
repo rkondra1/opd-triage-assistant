@@ -32,4 +32,7 @@ export const api = {
     request("/api/auth/login", { method: "POST", body: { username, password } }),
   me: (token) => request("/api/me", { token }),
   health: () => request("/api/health"),
+  meta: (token) => request("/api/meta", { token }),
+  triage: (token, record) =>
+    request("/api/triage", { method: "POST", token, body: record }),
 };

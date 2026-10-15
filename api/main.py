@@ -123,6 +123,24 @@ def health() -> dict:
     return {"status": "ok", "model_loaded": os.path.exists(model_path)}
 
 
+@app.get("/api/meta")
+def meta(user: dict = Depends(current_user)) -> dict:
+    """Reference data for the UI: triage levels + department list."""
+    from src.triage_rubric import DEPARTMENTS, TRIAGE_LEVELS
+
+    return {
+        "triage_levels": {
+            str(lvl): {
+                "name": info["name"],
+                "target_minutes": info["target_minutes"],
+                "definition": info["definition"],
+            }
+            for lvl, info in TRIAGE_LEVELS.items()
+        },
+        "departments": DEPARTMENTS,
+    }
+
+
 @app.post("/api/auth/login")
 def login(body: LoginRequest) -> dict:
     user = auth.authenticate(body.username, body.password)

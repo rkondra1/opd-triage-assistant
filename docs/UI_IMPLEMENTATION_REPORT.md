@@ -18,11 +18,36 @@ same `TriageEngine`.
 | Screen | Could it be inspected? | Status |
 | --- | --- | --- |
 | Login page | Yes — rendered in a real browser | **Recreated natively** (not an iframe or screenshot) |
-| Dashboard, Patients, Triage, Queue, Admin, Reports, Analytics, Settings, Profile | **No** — the reference backend was offline, so these never rendered | Not built. A small placeholder dashboard confirms login works end to end. |
+| Dashboard, Triage, Queue, Admin | **No** — the reference backend was offline, so the originals never rendered | **Built** in the login's design system (brand-consistent, not pixel copies of the unseen originals), fully functional against the real ML engine |
+| Patients, Reports, Analytics, Settings, Profile | **No** | Not built (lower priority; can be added the same way) |
 
-Only the login page could be faithfully reproduced because it is the only screen
-that rendered in the reference deployment (the rest sit behind a sleeping
-backend). No inaccessible screens were invented.
+The **login page** is a faithful reproduction of the one screen that rendered in
+the reference deployment. The authenticated screens could not be seen (the
+reference sits behind a sleeping backend), so — with the user's go-ahead — they
+were built to match the login's visual language and wired to the real backend,
+rather than being pixel copies of screens that were never accessible. No attempt
+was made to fabricate the exact original layouts.
+
+## 2a. Authenticated screens (built after login)
+
+All share an app shell (dark sidebar + top bar, role-aware navigation):
+
+- **Dashboard** — live session stats (assessed / waiting / emergencies / sent to
+  nurse), triage-level distribution bars, and a "next to be seen" list.
+- **New triage** — the core workflow: a patient intake form that POSTs to
+  `/api/triage` and shows the real model + safety-rule decision (level, name,
+  target time, department, red flags, fired rules, data-quality warnings,
+  confidence, abstention). Results can be added to the queue.
+- **Patient queue** — all assessed patients, auto-sorted by urgency (abstentions
+  and Level 1 first), with "mark seen" / "remove" actions. Stored client-side
+  (localStorage) since there is no database.
+- **Admin** (admin role only) — ML model status + department count from
+  `/api/health` and `/api/meta`, the seeded staff accounts, and the triage-scale
+  reference. Read-only.
+
+Role-based access: `nurse` and `doctor` see Dashboard / New triage / Queue;
+`admin` additionally sees Admin. Direct navigation to `/admin` by a non-admin
+redirects to the dashboard.
 
 ## 3. Architecture decision
 
@@ -115,8 +140,12 @@ backend on port 8000, so no extra configuration is needed for local development.
 
 ## 10. Not done / next steps
 
-- The authenticated screens (dashboard, patients, triage, queue, admin, etc.)
-  were not built because they could not be inspected (reference backend offline).
-  When those screens are available (a live reference or screenshots/design
-  export), they can be added as new React routes that call the existing
-  `POST /api/triage` endpoint (already wired to `TriageEngine`).
+- The remaining reference routes (Patients, Reports, Analytics, Settings,
+  Profile) were not built. They can be added as new React routes in the same
+  shell when needed.
+- The built authenticated screens follow the login's visual language rather than
+  the exact (never-rendered) reference layouts. If the reference backend is woken
+  — or screenshots / a design export are provided — the screens can be refined to
+  match the originals pixel-for-pixel.
+- The patient queue is client-side (localStorage). Persisting it server-side
+  would need a small database/table and a few CRUD endpoints.

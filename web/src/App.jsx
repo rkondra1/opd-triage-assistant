@@ -2,10 +2,15 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./auth/AuthContext.jsx";
 import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import Triage from "./pages/Triage.jsx";
+import Queue from "./pages/Queue.jsx";
+import Admin from "./pages/Admin.jsx";
 
-function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+function ProtectedRoute({ children, roles }) {
+  const { isAuthenticated, user } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (roles && !roles.includes(user?.role)) return <Navigate to="/dashboard" replace />;
+  return children;
 }
 
 export default function App() {
@@ -16,11 +21,14 @@ export default function App() {
         path="/login"
         element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />}
       />
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/triage" element={<ProtectedRoute><Triage /></ProtectedRoute>} />
+      <Route path="/queue" element={<ProtectedRoute><Queue /></ProtectedRoute>} />
       <Route
-        path="/dashboard"
+        path="/admin"
         element={
-          <ProtectedRoute>
-            <Dashboard />
+          <ProtectedRoute roles={["admin"]}>
+            <Admin />
           </ProtectedRoute>
         }
       />
