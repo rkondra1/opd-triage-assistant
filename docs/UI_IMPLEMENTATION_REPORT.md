@@ -18,8 +18,7 @@ same `TriageEngine`.
 | Screen | Could it be inspected? | Status |
 | --- | --- | --- |
 | Login page | Yes — rendered in a real browser | **Recreated natively** (not an iframe or screenshot) |
-| Dashboard, Triage, Queue, Admin | **No** — the reference backend was offline, so the originals never rendered | **Built** in the login's design system (brand-consistent, not pixel copies of the unseen originals), fully functional against the real ML engine |
-| Patients, Reports, Analytics, Settings, Profile | **No** | Not built (lower priority; can be added the same way) |
+| Dashboard, Triage, Queue, Patients, Analytics, Reports, Admin, Settings, Profile | **No** — the reference backend was offline, so the originals never rendered | **Built** in the login's design system (brand-consistent, not pixel copies of the unseen originals), fully functional against the real ML engine |
 
 The **login page** is a faithful reproduction of the one screen that rendered in
 the reference deployment. The authenticated screens could not be seen (the
@@ -45,9 +44,28 @@ All share an app shell (dark sidebar + top bar, role-aware navigation):
   `/api/health` and `/api/meta`, the seeded staff accounts, and the triage-scale
   reference. Read-only.
 
-Role-based access: `nurse` and `doctor` see Dashboard / New triage / Queue;
-`admin` additionally sees Admin. Direct navigation to `/admin` by a non-admin
-redirects to the dashboard.
+Additional screens:
+
+- **Patients** — searchable, level-filterable registry of every patient assessed
+  this session.
+- **Analytics** (doctor / admin) — triage-level and department distributions plus
+  the most common red flags, with average confidence and abstention rate.
+- **Reports** (doctor / admin) — session summary, per-level breakdown table, and a
+  one-click **CSV export** for handover/records.
+- **Settings** — per-device display/workflow preferences (localStorage).
+- **Profile** — account details and live session info (decoded token expiry).
+
+Role-based access:
+
+| Screen | nurse | doctor | admin |
+| --- | :-: | :-: | :-: |
+| Dashboard, New triage, Queue, Patients, Profile, Settings | ✅ | ✅ | ✅ |
+| Analytics, Reports | — | ✅ | ✅ |
+| Admin | — | — | ✅ |
+
+Direct navigation to a screen the role can't access redirects to the dashboard
+(verified: a nurse hitting `/admin` lands on `/dashboard` with no admin content
+rendered).
 
 ## 3. Architecture decision
 
@@ -140,12 +158,10 @@ backend on port 8000, so no extra configuration is needed for local development.
 
 ## 10. Not done / next steps
 
-- The remaining reference routes (Patients, Reports, Analytics, Settings,
-  Profile) were not built. They can be added as new React routes in the same
-  shell when needed.
-- The built authenticated screens follow the login's visual language rather than
-  the exact (never-rendered) reference layouts. If the reference backend is woken
-  — or screenshots / a design export are provided — the screens can be refined to
+- The authenticated screens follow the login's visual language rather than the
+  exact (never-rendered) reference layouts. If the reference backend is woken —
+  or screenshots / a design export are provided — the screens can be refined to
   match the originals pixel-for-pixel.
-- The patient queue is client-side (localStorage). Persisting it server-side
-  would need a small database/table and a few CRUD endpoints.
+- The patient queue and patient registry are client-side (localStorage).
+  Persisting them server-side would need a small database/table and a few CRUD
+  endpoints on the FastAPI backend.

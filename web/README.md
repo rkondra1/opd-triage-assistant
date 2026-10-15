@@ -67,6 +67,24 @@ web/
     lib/api.js            # tiny fetch client
     auth/AuthContext.jsx  # session state (login/logout, token storage)
     components/PulseLogo.jsx
-    pages/Login.jsx       # the recreated login page
-    pages/Dashboard.jsx   # placeholder landing after login
+    components/AppLayout.jsx   # sidebar + topbar shell (role-aware nav)
+    queue/QueueContext.jsx     # client-side patient queue (localStorage)
+    pages/Login.jsx            # the recreated login page
+    pages/Dashboard.jsx        # live session overview
+    pages/Triage.jsx           # intake form -> real ML assessment
+    pages/Queue.jsx            # priority-sorted patient queue
+    pages/Patients.jsx         # searchable patient registry
+    pages/Analytics.jsx        # distributions + red-flag frequency (doctor/admin)
+    pages/Reports.jsx          # session summary + CSV export (doctor/admin)
+    pages/Admin.jsx            # model/dept status + staff + rubric (admin)
+    pages/Settings.jsx         # per-device preferences
+    pages/Profile.jsx          # account + session info
 ```
+
+## Screens & roles
+
+| Screen | nurse | doctor | admin |
+| ------ | :---: | :----: | :---: |
+| Dashboard, New triage, Queue, Patients, Profile, Settings | ✅ | ✅ | ✅ |
+| Analytics, Reports | — | ✅ | ✅ |
+| Admin | — | — | ✅ |

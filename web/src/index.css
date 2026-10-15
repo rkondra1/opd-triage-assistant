@@ -692,10 +692,70 @@ body {
 .rubric-def { grid-column: 2; color: var(--slate-500); font-size: 12.5px; }
 .dept-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
+/* ---- Nav separator + footer nav ---- */
+.nav-sep { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 10px 8px; }
+.sidebar-user { text-decoration: none; cursor: pointer; border-radius: 10px; transition: background 0.15s; }
+.sidebar-user:hover { background: rgba(255, 255, 255, 0.05); }
+
+/* ---- Toolbar / search ---- */
+.toolbar { display: flex; gap: 10px; margin-bottom: 16px; }
+.search {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 14.5px;
+  font-family: inherit;
+  border: 1px solid var(--slate-200);
+  border-radius: 9px;
+  background: #f8fafc;
+  outline: none;
+}
+.search:focus { border-color: var(--teal-500); background: #fff; box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.16); }
+.toolbar select {
+  padding: 10px 12px; font-size: 14px; font-family: inherit;
+  border: 1px solid var(--slate-200); border-radius: 9px; background: #f8fafc; outline: none;
+}
+
+/* ---- Data table ---- */
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.data-table th { text-align: left; color: var(--slate-500); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; padding: 9px 12px; border-bottom: 1px solid var(--slate-200); }
+.data-table td { padding: 11px 12px; border-bottom: 1px solid var(--slate-100, #f1f5f9); vertical-align: middle; }
+.data-table tr:hover td { background: #f8fafc; }
+.data-table .strong { font-weight: 700; }
+.data-table .muted { color: var(--slate-400); }
+.data-table .truncate { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.level-pill { display: inline-block; color: #fff; font-weight: 700; font-size: 11.5px; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.bar-label.wide { width: 120px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---- Reports summary ---- */
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.summary-item { background: #f8fafc; border: 1px solid var(--slate-200); border-radius: 12px; padding: 16px; text-align: center; }
+.summary-value { font-size: 26px; font-weight: 800; color: var(--ink-800); }
+.summary-label { font-size: 12.5px; color: var(--slate-500); margin-top: 4px; }
+
+/* ---- Settings ---- */
+.settings-card { max-width: 640px; }
+.card-title.spaced { margin-top: 24px; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--slate-100, #f1f5f9); font-size: 14.5px; }
+.switch { width: 44px; height: 26px; border-radius: 999px; background: var(--slate-300); border: none; position: relative; cursor: pointer; transition: background 0.18s; flex: none; }
+.switch.on { background: var(--teal-500); }
+.switch .knob { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform 0.18s; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+.switch.on .knob { transform: translateX(18px); }
+.inline-field { max-width: 260px; margin-top: 18px; }
+.settings-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.saved-note { color: #0d9488; font-weight: 700; font-size: 14px; }
+
+/* ---- Profile ---- */
+.profile-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.avatar.big { width: 58px; height: 58px; border-radius: 16px; font-size: 24px; }
+.profile-name { font-size: 20px; font-weight: 800; }
+.profile-role { color: var(--slate-500); text-transform: capitalize; }
+.profile-logout { margin-top: 20px; }
+
 /* =========================================================================
    Responsive
    ========================================================================= */
 @media (max-width: 1000px) {
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-row { grid-template-columns: repeat(2, 1fr); }
   .dash-two { grid-template-columns: 1fr; }
   .triage-grid { grid-template-columns: 1fr; }
